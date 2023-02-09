@@ -20,7 +20,7 @@
     },
     "identities": [3, 1],
     "is_spread": 0,
-    "msg_type": 1,
+    "msg_type": 2,
     "roomid": 8765806,
     "score": 1651351831472,
     "spread_desc": "",

@@ -36,6 +36,8 @@ pub enum EventParseError {
 impl Data {
     pub fn to_event(self) -> Result<Option<Event>, EventParseError> {
         let data = match self {
+            
+
             Data::Json(json_val) => match crate::cmd::Cmd::deser(json_val) {
                 Ok(cmd) => cmd.as_event(),
                 Err(e) => return Err(EventParseError::CmdDeserError(e))

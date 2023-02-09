@@ -252,21 +252,25 @@ impl Cmd {
     pub fn as_event(self) -> Option<EventData> {
         match self {
             Cmd::InteractWord { msg_type, fans_medal, user } 
-                => {
-                println!("user:{:?} type:{}", user, msg_type);
-
-                match msg_type {
-                    1 => Some(EventData::EnterRoom {
-                        user, 
-                        fans_medal:medal_filter(fans_medal)
-                    }), 
+                => 
+                Some(EventData::EnterRoom {
+                    user, 
+                    msg_type,
+                    fans_medal:medal_filter(fans_medal)
+                }),
+            //     {
+            //     match msg_type {
+            //         1 => Some(EventData::EnterRoom {
+            //             user, 
+            //             msg_type,
+            //             fans_medal:medal_filter(fans_medal)
+            //         }), 
                     
-                    _ => Some(EventData::InteractWord { 
-                        user
-                    }),
-                }
-            }
-                    
+            //         _ => Some(EventData::InteractWord { 
+            //             user
+            //         }),
+            //     }
+            // }      
             Cmd::DanmuMsg { danmaku_type, fans_medal, user, message ,emoticon} => {
                 match emoticon {
                     Some(emoticon) =>  Some(EventData::Danmaku { 

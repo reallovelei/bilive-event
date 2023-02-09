@@ -13,6 +13,7 @@ pub enum EventData {
     },
     EnterRoom {
         user: User,
+        msg_type: i32,
         fans_medal: Option<FansMedal>
     },
     BlindboxGift {
