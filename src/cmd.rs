@@ -67,6 +67,7 @@ pub(crate) enum Cmd {
     },
     StopLiveRoomList{},
     InteractWord{
+        msg_type: i32, // 1进入直播间， 推测2 是关注直播间
         fans_medal: Option<FansMedal>,
         #[serde(flatten)]
         user: User,
@@ -250,11 +251,22 @@ impl Cmd {
 
     pub fn as_event(self) -> Option<EventData> {
         match self {
-            Cmd::InteractWord { fans_medal, user } 
-                => Some(EventData::EnterRoom {
-                    user, 
-                    fans_medal:medal_filter(fans_medal)
-                }),
+            Cmd::InteractWord { msg_type, fans_medal, user } 
+                => {
+                println!("user:{:?} type:{}", user, msg_type);
+
+                match msg_type {
+                    1 => Some(EventData::EnterRoom {
+                        user, 
+                        fans_medal:medal_filter(fans_medal)
+                    }), 
+                    
+                    _ => Some(EventData::InteractWord { 
+                        user
+                    }),
+                }
+            }
+                    
             Cmd::DanmuMsg { danmaku_type, fans_medal, user, message ,emoticon} => {
                 match emoticon {
                     Some(emoticon) =>  Some(EventData::Danmaku { 
@@ -311,8 +323,6 @@ impl Cmd {
                 Some(EventData::HotRankSettlement { uname, face, area: area_name, rank}),
             Cmd::GuardBuy { gift_id, gift_name, guard_level, price, num, uid, username} => 
                 Some(EventData::GuardBuy{ level: guard_level, price, user: User{uname: username, uid, face:None}}),
-            Cmd::InteractWord { fans_medal, user } => 
-                Some(EventData::InteractWord { user, fans_medal}),
             _ => {
                 None
             }

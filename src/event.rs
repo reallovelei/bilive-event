@@ -61,7 +61,6 @@ pub enum EventData {
     },
     InteractWord {
         user: User,
-        fans_medal: Option<FansMedal>,
     },
 }
 
