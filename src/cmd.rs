@@ -311,6 +311,8 @@ impl Cmd {
                 Some(EventData::HotRankSettlement { uname, face, area: area_name, rank}),
             Cmd::GuardBuy { gift_id, gift_name, guard_level, price, num, uid, username} => 
                 Some(EventData::GuardBuy{ level: guard_level, price, user: User{uname: username, uid, face:None}}),
+            Cmd::InteractWord { fans_medal, user } => 
+                Some(EventData::InteractWord { user, fans_medal}),
             _ => {
                 None
             }

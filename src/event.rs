@@ -59,6 +59,10 @@ pub enum EventData {
         area: String,
         rank: u64,
     },
+    InteractWord {
+        user: User,
+        fans_medal: Option<FansMedal>,
+    },
 }
 
 impl Into<Event> for EventData {
